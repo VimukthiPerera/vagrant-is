@@ -19,13 +19,29 @@
 # set variables
 WSO2_SERVER=wso2is-analytics
 WSO2_SERVER_VERSION=5.4.0
-WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}*.zip
+WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
 MYSQL_CONNECTOR=mysql-connector-java-5.1.*-bin.jar
 WORKING_DIRECTORY=/home/vagrant
+WUM_WORKINNG_DIRECTORY=/root/.wum-wso2/products/${WSO2_SERVER}/${WSO2_SERVER_VERSION}/{WSO2_SERVER_PACK}
 JAVA_HOME=/opt/java/
 DEFAULT_MOUNT=/vagrant
 CONFIGURATIONS=${DEFAULT_MOUNT}/identity-server-analytics/confs
 NODE_IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+
+#extracting the newest pack
+username = vimukthi@wso2.com
+password = Chu!ebmathematics
+wum init -u ${username} -p ${password}
+wum add --file ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
+wum update
+
+#replacing the current GA pack
+if [ ! -f ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}*.zip ]; then
+	echo "Replacing the GA pack with WUM updated pack"
+	mv ${WUM_WORKINNG_DIRECTORY}/${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}*.zip ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
+	echo "Successfully replaced the GA pack"
+
+fi
 
 #setting up the server
 if test ! -d ${WSO2_SERVER}-${WSO2_SERVER_VERSION}; then
