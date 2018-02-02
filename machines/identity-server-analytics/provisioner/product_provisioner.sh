@@ -26,7 +26,7 @@ WUM_WORKING_DIRECTORY=/root/.wum-wso2/products/${WSO2_SERVER}/${WSO2_SERVER_VERS
 JAVA_HOME=/opt/java/
 PATH=$PATH:/usr/local/wum/bin
 DEFAULT_MOUNT=/vagrant
-CONFIGURATIONS=${DEFAULT_MOUNT}/identity-server/confs
+CONFIGURATIONS=${DEFAULT_MOUNT}/identity-server-analytics/confs
 NODE_IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
 export PATH
