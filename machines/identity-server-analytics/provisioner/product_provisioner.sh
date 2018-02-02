@@ -28,6 +28,8 @@ DEFAULT_MOUNT=/vagrant
 CONFIGURATIONS=${DEFAULT_MOUNT}/identity-server/confs
 NODE_IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
+echo "### $1 - $2"
+
 export WUM_PATH
 #extracting the newest pack
 wum init -u vimukthi@wso2.com -p Chu!ebmathematics
