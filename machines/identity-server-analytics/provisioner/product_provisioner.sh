@@ -24,24 +24,12 @@ MYSQL_CONNECTOR=mysql-connector-java-5.1.*-bin.jar
 WORKING_DIRECTORY=/home/vagrant
 WUM_WORKING_DIRECTORY=/root/.wum-wso2/products/${WSO2_SERVER}/${WSO2_SERVER_VERSION}/
 JAVA_HOME=/opt/java/
+PATH=$PATH:/usr/local/wum/bin
 DEFAULT_MOUNT=/vagrant
 CONFIGURATIONS=${DEFAULT_MOUNT}/identity-server/confs
 NODE_IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
-echo "### $1 - $2"
-
-export WUM_PATH
-#extracting the newest pack
-wum init -u vimukthi@wso2.com -p Chu!ebmathematics
-wum add --file ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
-wum update
-
-#replacing the current GA pack
-if [ ! -f ${WUM_WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}.*.zip ]; then
-	echo "Replacing the GA pack with WUM updated pack"
-	mv ${WUM_WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}.*.zip ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
-	echo "Successfully replaced the GA pack"
-fi
+export PATH
 
 #setting up the server
 if test ! -d ${WSO2_SERVER}-${WSO2_SERVER_VERSION}; then

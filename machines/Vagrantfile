@@ -1,4 +1,4 @@
-# Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+# Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,21 +16,6 @@
 
 require 'yaml'
 require 'fileutils'
-require 'uri'
-require 'erb'
-
-user_details = Array.new(2)
-
-#getting user details
-#todo: make optional
-$stdout.puts "#{self} needs authentication"
-$stdout.print "login: "
-user = $stdin.gets.chomp
-user_details.insert(0, user) 
-$stdout.print "password: "
-password = $stdin.noecho(&:gets).chomp
-user_details.insert(1, password) 
-user_and_pass = [ERB::Util.url_encode(user), password].join(':')
 
 # load server configurations from YAML file
 CONFIGURATIONS = YAML.load_file('config.yaml')
@@ -44,11 +29,6 @@ Vagrant.configure(2) do |config|
       server_config.vm.box = server['box']
       # define the virtual machine host name
       server_config.vm.host_name = server['hostname']
-      server_config.vm.box_download_insecure = true
-      # erver_config,vm.box_url="http://"+user_and_pass+"@files.vagrantup.com/precise64.box"
-      url = "http://"+user_and_pass+"@192.168.58.253/"+server['box']+".box"
-      # uri = URI.parse(url)
-      server_config.vm.box_url = url
 
       # setup network configurations for the virtual machine
       # use private networking (recommended for multi-machine scenarios)
@@ -71,15 +51,14 @@ Vagrant.configure(2) do |config|
         # if not defined, move to next server specification
         next
       end
-      #server['provisioner_script_args'] = user_details
 
-      #if server['provisioner_script_args']
+      if server['provisioner_script_args']
         # if argument(s) have been defined to be passed to the shell script
-       # server_config.vm.provision "shell", path: server['provisioner_script'], args: server['provisioner_script_args']
-      # else
+        server_config.vm.provision "shell", path: server['provisioner_script'], args: server['provisioner_script_args']
+      else
         # if no argument(s) have been defined to be passed to the shell script
-       # server_config.vm.provision "shell", path: server['provisioner_script']
-      #end
+        server_config.vm.provision "shell", path: server['provisioner_script']
+      end
     end
   end
 end
