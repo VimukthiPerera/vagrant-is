@@ -19,8 +19,6 @@
 # set variables
 WSO2_SERVER=wso2is
 WSO2_SERVER_VERSION=5.4.0
-WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}*.zip
-MYSQL_CONNECTOR=mysql-connector-java-5.1.*-bin.jar
 WORKING_DIRECTORY=/home/vagrant
 WUM_WORKING_DIRECTORY=/root/.wum-wso2/products/${WSO2_SERVER}/${WSO2_SERVER_VERSION}/
 JAVA_HOME=/opt/java/

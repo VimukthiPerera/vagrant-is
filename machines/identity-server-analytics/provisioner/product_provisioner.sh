@@ -19,8 +19,6 @@
 # set variables
 WSO2_SERVER=wso2is-analytics
 WSO2_SERVER_VERSION=5.4.0
-WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}*.zip
-MYSQL_CONNECTOR=mysql-connector-java-5.1.*-bin.jar
 WORKING_DIRECTORY=/home/vagrant
 WUM_WORKING_DIRECTORY=/root/.wum-wso2/products/${WSO2_SERVER}/${WSO2_SERVER_VERSION}/
 JAVA_HOME=/opt/java/
@@ -49,7 +47,6 @@ cp -a ${CONFIGURATIONS}/repository/components/dropins/. ${WORKING_DIRECTORY}/${W
 cp -a ${CONFIGURATIONS}/repository/components/extensions/. ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/repository/components/extensions/
 cp -a ${CONFIGURATIONS}/repository/components/lib/. ${WORKING_DIRECTORY}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/repository/components/lib/
 echo "Successfully copied the files."
-
 export JAVA_HOME
 
 # start the WSO2 product pack as a background service
